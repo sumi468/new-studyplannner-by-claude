@@ -460,8 +460,8 @@ const JP_HOL={
 
 // ── Supabase 設定 ─────────────────────────────────────────
 // ▼ ご自身のSupabaseプロジェクトURLとanon keyに置き換えてください
-const SUPA_URL = https://ymuemcvdatfblrzzrgyc.supabase.co/rest/v1/
-const SUPA_ANON = sb_publishable_cvV0kxoYYaKI1sjudcaBMg_FVfHdxo-
+const SUPA_URL = 'https://ymuemcvdatfblrzzrgyc.supabase.co';
+const SUPA_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InltdWVtY3ZkYXRmYmxyenpyZ3ljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3MTA3MjQsImV4cCI6MjA5NTI4NjcyNH0.HnEHYmdDfVNYTFsyeFrjvbIpYrZpbO-s6pCd2x1JGv0';
 let _sb = null;
 try {
   _sb = supabase.createClient(SUPA_URL, SUPA_ANON, {
