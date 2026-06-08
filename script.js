@@ -1,5 +1,4 @@
-const PERIODS = [
-  {l:'1陁E,s:'08:40',e:'09:25'},{l:'2陁E,s:'09:35',e:'10:20'},
+{l:'1陁E,s:'08:40',e:'09:25'},{l:'2陁E,s:'09:35',e:'10:20'},
   {l:'3陁E,s:'10:30',e:'11:15'},{l:'4陁E,s:'11:25',e:'12:10'},
   {l:'5陁E,s:'12:55',e:'13:40'},{l:'6陁E,s:'13:50',e:'14:35'},
   {l:'7陁E,s:'14:45',e:'15:30'},
@@ -15,7 +14,8 @@ const JP_HOL={
 // ── Supabase 設宁E─────────────────────────────────────────
 // ▼ ご�E身のSupabaseプロジェクチERLとanon keyに置き換えてください
 const SUPA_URL = 'https://ymuemcvdatfblrzzrgyc.supabase.co';
-const SUPA_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InltdWVtY3ZkYXRmYmxyenpyZ3ljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3MTA3MjQsImV4cCI6MjA5NTI4NjcyNH0.HnEHYmdDfVNYTFsyeFrjvbIpYrZpbO-s6pCd2x1JGv0'; // SupabaseダチE��ュボ�Eド�ESettings→API→anon keyを貼めElet _sb = null;
+const SUPA_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InltdWVtY3ZkYXRmYmxyenpyZ3ljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3MTA3MjQsImV4cCI6MjA5NTI4NjcyNH0.HnEHYmdDfVNYTFsyeFrjvbIpYrZpbO-s6pCd2x1JGv0'; // SupabaseダチE��ュボ�Eド�ESettings→API→anon keyを貼めE
+let _sb = null;
 try {
   _sb = supabase.createClient(SUPA_URL, SUPA_ANON, {
     auth: { persistSession: true, autoRefreshToken: true }
