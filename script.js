@@ -1,3 +1,4 @@
+const PERIODS = [
   {l:'1陁E,s:'08:40',e:'09:25'},{l:'2陁E,s:'09:35',e:'10:20'},
   {l:'3陁E,s:'10:30',e:'11:15'},{l:'4陁E,s:'11:25',e:'12:10'},
   {l:'5陁E,s:'12:55',e:'13:40'},{l:'6陁E,s:'13:50',e:'14:35'},
@@ -7,14 +8,14 @@ const SAT_MAX=4;
 const DN=['日','朁E,'火','水','木','釁E,'圁E];
 const DAYS_WD=[{d:1,l:'朁E},{d:2,l:'火'},{d:3,l:'水'},{d:4,l:'木'},{d:5,l:'釁E},{d:6,l:'圁E}];
 const JP_HOL={
-  '2025-01-01':'允E��','2025-01-13':'成人の日','2025-02-11':'建国記念の日','2025-02-23':'天皁E��生日','2025-02-24':'振替休日','2025-03-20':'春刁E�E日','2025-04-29':'昭和�E日','2025-05-03':'憲法記念日','2025-05-04':'みどり�E日','2025-05-05':'こども�E日','2025-05-06':'振替休日','2025-07-21':'海の日','2025-08-11':'山の日','2025-09-15':'敬老�E日','2025-09-23':'秋�Eの日','2025-10-13':'スポ�EチE�E日','2025-11-03':'斁E��の日','2025-11-23':'勤労感謝�E日','2025-11-24':'振替休日','2025-12-23':'天皁E��生日',
-  '2026-01-01':'允E��','2026-01-12':'成人の日','2026-02-11':'建国記念の日','2026-02-23':'天皁E��生日','2026-03-20':'春刁E�E日','2026-04-29':'昭和�E日','2026-05-03':'憲法記念日','2026-05-04':'みどり�E日','2026-05-05':'こども�E日','2026-05-06':'振替休日','2026-07-20':'海の日','2026-08-11':'山の日','2026-09-21':'敬老�E日','2026-09-22':'国民�E休日','2026-09-23':'秋�Eの日','2026-10-12':'スポ�EチE�E日','2026-11-03':'斁E��の日','2026-11-23':'勤労感謝�E日'
+  '2025-01-01':'允E��','2025-01-13':'成人の日','2025-02-11':'建国記念の日','2025-02-23':'天皁E��生日','2025-02-24':'振替休日','2025-03-20':'春刁E�E日','2025-04-29':'昭和�E日','2025-05-03':'憲法記念日','2025-05-04':'みどり�E日','2025-05-05':'こども�E日','2025-05-06':'振替休日','2025-07-21':'海の日','2025-08-11':'山の日','2025-09-15':'敬老�E日','2025-09-23':'秋�Eの日','2025-10-13':'スポ�EチE�E日','2025-11-03':'斁E��の日','2025-11-23':'勤労感謝�E日','2025-11-24':'振替休日','2025-12-23':'天皁E��生日',
+  '2026-01-01':'允E��','2026-01-12':'成人の日','2026-02-11':'建国記念の日','2026-02-23':'天皁E��生日','2026-03-20':'春刁E�E日','2026-04-29':'昭和�E日','2026-05-03':'憲法記念日','2026-05-04':'みどり�E日','2026-05-05':'こども�E日','2026-05-06':'振替休日','2026-07-20':'海の日','2026-08-11':'山の日','2026-09-21':'敬老�E日','2026-09-22':'国民�E休日','2026-09-23':'秋�Eの日','2026-10-12':'スポ�EチE�E日','2026-11-03':'斁E��の日','2026-11-23':'勤労感謝�E日'
 };
 
 // ── Supabase 設宁E─────────────────────────────────────────
-// ▼ ご�E身のSupabaseプロジェクチERLとanon keyに置き換えてください
+// ▼ ご�E身のSupabaseプロジェクチERLとanon keyに置き換えてください
 const SUPA_URL = 'https://ymuemcvdatfblrzzrgyc.supabase.co';
-const SUPA_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InltdWVtY3ZkYXRmYmxyenpyZ3ljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3MTA3MjQsImV4cCI6MjA5NTI4NjcyNH0.HnEHYmdDfVNYTFsyeFrjvbIpYrZpbO-s6pCd2x1JGv0'; // SupabaseダチE��ュボ�Eド�ESettings→API→anon keyを貼めElet _sb = null;
+const SUPA_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InltdWVtY3ZkYXRmYmxyenpyZ3ljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3MTA3MjQsImV4cCI6MjA5NTI4NjcyNH0.HnEHYmdDfVNYTFsyeFrjvbIpYrZpbO-s6pCd2x1JGv0'; // SupabaseダチE��ュボ�Eド�ESettings→API→anon keyを貼めElet _sb = null;
 try {
   _sb = supabase.createClient(SUPA_URL, SUPA_ANON, {
     auth: { persistSession: true, autoRefreshToken: true }
@@ -31,7 +32,7 @@ function closeAuth(){
   ov.style.opacity='0';
   setTimeout(()=>{
     ov.style.display='none';ov.style.opacity='';ov.classList.remove('open');
-    // フォームをリセチE��
+    // フォームをリセチE��
     document.getElementById('auth-form-body').style.display='';
     document.getElementById('auth-sent-panel').classList.remove('visible');
   },250);
@@ -48,22 +49,22 @@ function openGmail(){
   }
 }
 function openAppleMail(){
-  // iOS Mail.app を開く！Eailto: ではなぁEmessage:// スキームを使用�E�E  window.location.href='message://';
+  // iOS Mail.app を開く！Eailto: ではなぁEmessage:// スキームを使用�E�E  window.location.href='message://';
 }
 function switchAuthTab(tab){
   _authTab=tab;
   document.getElementById('auth-tab-login').classList.toggle('active',tab==='login');
   document.getElementById('auth-tab-signup').classList.toggle('active',tab==='signup');
-  document.getElementById('auth-submit-btn').textContent=tab==='login'?'ログイン':'アカウントを作�E';
+  document.getElementById('auth-submit-btn').textContent=tab==='login'?'ログイン':'アカウントを作�E';
   document.getElementById('auth-err').textContent='';
 }
 async function doAuth(){
-  if(!_sb){document.getElementById('auth-err').textContent='Supabaseの設定が忁E��です！EEADME参�E�E�E;return;}
+  if(!_sb){document.getElementById('auth-err').textContent='Supabaseの設定が忁E��です！EEADME参�E�E�E;return;}
   const email=document.getElementById('auth-email').value.trim();
   const password=document.getElementById('auth-password').value;
   const btn=document.getElementById('auth-submit-btn');
   if(!email||!password){document.getElementById('auth-err').textContent='メールとパスワードを入力してください';return;}
-  btn.disabled=true;btn.textContent='処琁E��...';
+  btn.disabled=true;btn.textContent='処琁E��...';
   document.getElementById('auth-err').textContent='';
   let err;
   if(_authTab==='login'){
@@ -75,7 +76,7 @@ async function doAuth(){
   switchAuthTab(_authTab);
   if(err){document.getElementById('auth-err').textContent=_authErrMsg(err.message);return;}
   if(_authTab==='signup'){
-    // 送信後UIに刁E��替ぁE    document.getElementById('auth-sent-email-label').textContent=email;
+    // 送信後UIに刁E��替ぁE    document.getElementById('auth-sent-email-label').textContent=email;
     document.getElementById('auth-form-body').style.display='none';
     document.getElementById('auth-sent-panel').classList.add('visible');
     return;
@@ -83,10 +84,10 @@ async function doAuth(){
   closeAuth();
 }
 function _authErrMsg(m){
-  if(m.includes('Invalid login'))return 'メールまた�Eパスワードが違いまぁE;
+  if(m.includes('Invalid login'))return 'メールまた�Eパスワードが違いまぁE;
   if(m.includes('Email not confirmed'))return 'メールアドレスを確認してください';
-  if(m.includes('already registered'))return 'こ�Eメールアドレスはすでに登録済みでぁE;
-  if(m.includes('Password should'))return 'パスワード�E6斁E��以上にしてください';
+  if(m.includes('already registered'))return 'こ�Eメールアドレスはすでに登録済みでぁE;
+  if(m.includes('Password should'))return 'パスワード�E6斁E��以上にしてください';
   return m;
 }
 async function doLogout(){
@@ -96,7 +97,7 @@ async function doLogout(){
   if(currentTab==='settings')buildSettings();
 }
 
-// ── Supabase チE�Eタ同期 ─────────────────────────────────────
+// ── Supabase チE�Eタ同期 ─────────────────────────────────────
 async function syncToCloud(){
   if(!_sbUser||!_sb)return {ok:false,msg:'未ログイン'};
   const uid=_sbUser.id;
@@ -143,7 +144,7 @@ async function doSync(){
   setTimeout(()=>{if(btn)btn.querySelector('span').textContent='クラウド同朁E;},2000);
 }
 
-// ── ログイン状態�E購読 ─────────────────────────────────────
+// ── ログイン状態�E購読 ─────────────────────────────────────
 async function initAuth(){
   if(!_sb)return;
   const code=new URLSearchParams(window.location.search).get('code');
@@ -166,8 +167,8 @@ function showResetForm(){
   document.getElementById('auth-sent-panel').classList.remove('visible');
   document.getElementById('auth-reset-newpw-wrap').style.display='none';
   document.getElementById('auth-reset-email').style.display='';
-  document.getElementById('auth-reset-title').textContent='パスワードをリセチE��';
-  document.getElementById('auth-reset-body').textContent='メールアドレスを�E力してください。リセチE��リンクを送信します、E;
+  document.getElementById('auth-reset-title').textContent='パスワードをリセチE��';
+  document.getElementById('auth-reset-body').textContent='メールアドレスを�E力してください。リセチE��リンクを送信します、E;
   document.getElementById('auth-reset-btn').textContent='送信する';
   document.getElementById('auth-reset-err').textContent='';
   document.getElementById('auth-reset-panel').classList.add('visible');
@@ -192,8 +193,8 @@ async function doReset(){
   errEl.textContent='';
   // 新パスワード設定モーチE  if(document.getElementById('auth-reset-newpw-wrap').style.display!=='none'){
     const pw=document.getElementById('auth-reset-newpw').value;
-    if(!pw||pw.length<6){errEl.textContent='パスワード�E6斁E��以上にしてください';return;}
-    btn.disabled=true;btn.textContent='処琁E��...';
+    if(!pw||pw.length<6){errEl.textContent='パスワード�E6斁E��以上にしてください';return;}
+    btn.disabled=true;btn.textContent='処琁E��...';
     const {error}=await _sb.auth.updateUser({password:pw});
     btn.disabled=false;
     if(error){errEl.textContent=error.message;btn.textContent='パスワードを変更する';return;}
@@ -204,13 +205,13 @@ async function doReset(){
     return;
   }
   // メール送信モーチE  const email=document.getElementById('auth-reset-email').value.trim();
-  if(!email){errEl.textContent='メールアドレスを�E力してください';return;}
+  if(!email){errEl.textContent='メールアドレスを�E力してください';return;}
   btn.disabled=true;btn.textContent='送信中...';
   const {error}=await _sb.auth.resetPasswordForEmail(email,{redirectTo:window.location.origin+window.location.pathname});
   btn.disabled=false;
   if(error){errEl.textContent=error.message;btn.textContent='送信する';return;}
   document.getElementById('auth-reset-title').textContent='メールを送信しました';
-  document.getElementById('auth-reset-body').textContent='受信トレイを確認し、リンクを開ぁE��ください。迷惑メールフォルダもご確認ください、E;
+  document.getElementById('auth-reset-body').textContent='受信トレイを確認し、リンクを開ぁE��ください。迷惑メールフォルダもご確認ください、E;
   document.getElementById('auth-reset-email').style.display='none';
   btn.style.display='none';
 }
@@ -243,25 +244,25 @@ const SUBJECT_COLORS = {
   default: { bg:'#F6F8FC', border:'rgba(100,116,139,.15)', accent:'#475569', text:'#1e293b', time:'#94a3b8' },
 };
 
-// キーワード�EカチE��リ ルール
+// キーワード�EカチE��リ ルール
 const SUBJECT_RULES = [
-  { cat:'math',    words:['数学','算数','数II','数III','数A','数B','数C','統訁E,'微刁E,'積�E','線形','代数','ベクトル'] },
-  { cat:'english', words:['英誁E,'英会話','英斁E,'リーチE��ング','ライチE��ング','リスニング','スピ�Eキング','コミュニケーション英','論理表現','英表','英語表現'] },
-  { cat:'japanese',words:['国誁E,'現代斁E,'現代の国誁E,'言語文匁E,'古典','古斁E,'漢斁E,'小諁E,'論理国誁E,'斁E��国誁E,'現国','古典探究'] },
-  { cat:'science', words:['琁E��E,'物琁E,'化学','生物','地学','科学','実騁E] },
-  { cat:'social',  words:['社企E,'歴史','地琁E,'公氁E,'政治','経渁E,'公共','倫琁E,'日本史','世界史','地琁E��究','地歴','現社'] },
-  { cat:'info',    words:['惁E��','プログラム','コンピュータ','ICT','チE�Eタ','AI','DX','惁E��I','惁E��II'] },
-  { cat:'art',     words:['美衁E,'芸衁E,'音楽','書遁E,'工芸','チE��イン','アーチE,'図工','鑑賁E] },
-  { cat:'pe',      words:['体育','保健体育','スポ�EチE,'武遁E,'ダンス','体操','保健'] },
-  { cat:'home',    words:['家庭','家庭基礁E,'家庭総合','調琁E,'被朁E,'家政','生活','フ�Eドデザイン'] },
+  { cat:'math',    words:['数学','算数','数II','数III','数A','数B','数C','統訁E,'微刁E,'積�E','線形','代数','ベクトル'] },
+  { cat:'english', words:['英誁E,'英会話','英斁E,'リーチE��ング','ライチE��ング','リスニング','スピ�Eキング','コミュニケーション英','論理表現','英表','英語表現'] },
+  { cat:'japanese',words:['国誁E,'現代斁E,'現代の国誁E,'言語文匁E,'古典','古斁E,'漢斁E,'小諁E,'論理国誁E,'斁E��国誁E,'現国','古典探究'] },
+  { cat:'science', words:['琁E��E,'物琁E,'化学','生物','地学','科学','実騁E] },
+  { cat:'social',  words:['社企E,'歴史','地琁E,'公氁E,'政治','経渁E,'公共','倫琁E,'日本史','世界史','地琁E��究','地歴','現社'] },
+  { cat:'info',    words:['惁E��','プログラム','コンピュータ','ICT','チE�Eタ','AI','DX','惁E��I','惁E��II'] },
+  { cat:'art',     words:['美衁E,'芸衁E,'音楽','書遁E,'工芸','チE��イン','アーチE,'図工','鑑賁E] },
+  { cat:'pe',      words:['体育','保健体育','スポ�EチE,'武遁E,'ダンス','体操','保健'] },
+  { cat:'home',    words:['家庭','家庭基礁E,'家庭総合','調琁E,'被朁E,'家政','生活','フ�Eドデザイン'] },
   { cat:'inquiry', words:['探究','総合','プロジェクチE,'課題研究','探究学翁E,'ゼチE,'卒業研究','SSH','SGH'] },
-  { cat:'hr',      words:['ホ�Eムルーム','HR','進路','LHR','学活','朝礼','終礼','ガイダンス','キャリア'] },
+  { cat:'hr',      words:['ホ�Eムルーム','HR','進路','LHR','学活','朝礼','終礼','ガイダンス','キャリア'] },
 ];
 
-// ユーザーカスタム�E�封E��皁E��localStorageで永続化�E�Elet subjectColorOverrides = {};
+// ユーザーカスタム�E�封E��皁E��localStorageで永続化�E�Elet subjectColorOverrides = {};
 try { subjectColorOverrides = JSON.parse(localStorage.getItem('nexa_sub_colors') || '{}'); } catch(e) {}
 
-// ハッシュベ�Eス安定色生�E�E�カチE��リ不�E科目用�E�Efunction _hashColor(str) {
+// ハッシュベ�Eス安定色生�E�E�カチE��リ不�E科目用�E�Efunction _hashColor(str) {
   let h = 0;
   for (let i = 0; i < str.length; i++) h = Math.imul(31, h) + str.charCodeAt(i) | 0;
   const palette = [
@@ -281,7 +282,7 @@ try { subjectColorOverrides = JSON.parse(localStorage.getItem('nexa_sub_colors')
   return palette[Math.abs(h) % palette.length];
 }
 
-// メイン�E�科目名�Eカラート�Eクン
+// メイン�E�科目名�Eカラート�Eクン
 function getSubjectColor(subName) {
   if (!subName) return SUBJECT_COLORS.default;
   if (subjectColorOverrides[subName]) {
@@ -293,13 +294,13 @@ function getSubjectColor(subName) {
   return _hashColor(subName);
 }
 
-// CSS変数斁E���E生�E
+// CSS変数斁E���E生�E
 function subColorStyle(subName) {
   const c = getSubjectColor(subName);
   return `--sub-bg:${c.bg};--sub-border:${c.border};--sub-accent:${c.accent};--sub-text:${c.text};--sub-time:${c.time};`;
 }
 
-// 封E��用�E�ユーザーが科目カチE��リをカスタム設定する関数
+// 封E��用�E�ユーザーが科目カチE��リをカスタム設定する関数
 function setSubjectColorOverride(subName, category) {
   if (!subName) return;
   if (category) subjectColorOverrides[subName] = category;
@@ -318,7 +319,7 @@ function sv(){
   try{localStorage.setItem('sp_te',JSON.stringify(tests))}catch(e){}
   try{localStorage.setItem('sp_hol',JSON.stringify(holidays))}catch(e){}
   try{localStorage.setItem('sp_vac',JSON.stringify(vacations))}catch(e){}
-  if(_sbUser)syncToCloud().catch(()=>{}); // クラウドにも反映�E�失敗�E静音�E�E}
+  if(_sbUser)syncToCloud().catch(()=>{}); // クラウドにも反映�E�失敗�E静音�E�E}
 
 let currentTab='today',calMode='week',prevTabIdx=0;
 let _autoScrollToday=true; // 起動時のみ自動スクロール
@@ -451,20 +452,20 @@ function buildToday(){
     // ── 今日ビュー ──
     if(off){
       const reason=dow===0?'日曜日':holN(selDS);
-      inner+=`<div class="off-banner"><div style="font-size:28px">🏖�E�E/div><div><div style="font-size:15px;font-weight:700;color:#991b1b">${reason}</div><div style="font-size:12px;color:#b91c1c;margin-top:2px">学校はお休みです！E/div></div></div>`;
+      inner+=`<div class="off-banner"><div style="font-size:28px">🏖�E�E/div><div><div style="font-size:15px;font-weight:700;color:#991b1b">${reason}</div><div style="font-size:12px;color:#b91c1c;margin-top:2px">学校はお休みです！E/div></div></div>`;
     }
 
-    // ⑥ 【今日の時間割】カード（タチE�Eで時間割タブへ移動！E    const maxP=isSat?SAT_MAX:PERIODS.length;
+    // ⑥ 【今日の時間割】カード（タチE�Eで時間割タブへ移動！E    const maxP=isSat?SAT_MAX:PERIODS.length;
     const dayClasses=(!off&&dow>=1&&dow<=6)?classes.filter(c=>c.day==dow&&c.period<maxP):[];
     if(dayClasses.length>0){
       const subLabel=`${dayClasses.length}科目`;
       inner+=`<div class="today-tt-card" onclick="setTab('school','時間割',1)">
-        <div class="today-tt-card-left"><div class="today-tt-card-icon"><i class="ti ti-school"></i></div><div><div class="today-tt-card-title">今日の時間割</div><div class="today-tt-card-sub">${subLabel} · タチE�Eして確誁E/div></div></div>
+        <div class="today-tt-card-left"><div class="today-tt-card-icon"><i class="ti ti-school"></i></div><div><div class="today-tt-card-title">今日の時間割</div><div class="today-tt-card-sub">${subLabel} · タチE�Eして確誁E/div></div></div>
         <i class="ti ti-chevron-right" style="color:var(--muted);font-size:16px;flex-shrink:0"></i>
       </div>`;
     }
 
-    // タイムライン�E�ルーチE��ーン�E�タスクのみ�E�E    const events=[];
+    // タイムライン�E�ルーチE��ーン�E�タスクのみ�E�E    const events=[];
     routines.forEach(r=>events.push({time:r.time,end:mt(tm(r.time)+r.dur),title:r.name,type:'routine'}));
     tasks.filter(t=>!t.done).forEach(t=>events.push({time:t.time,end:mt(tm(t.time)+30),title:t.text,type:'todo'}));
     const START_H=4,END_H=22;
@@ -487,13 +488,13 @@ function buildToday(){
     const t0=new Date();t0.setHours(0,0,0,0);
     const up=tests.slice().sort((a,b)=>a.start.localeCompare(b.start)).filter(t=>{const e=new Date(t.end);e.setHours(0,0,0,0);return e>=t0;}).slice(0,4);
     if(up.length){
-      inner+=`<div class="sec-title">チE��トまでの日数</div><div class="cd-grid">`+up.map(t=>{
+      inner+=`<div class="sec-title">チE��トまでの日数</div><div class="cd-grid">`+up.map(t=>{
         const ds=new Date(t.start);ds.setHours(0,0,0,0);
         const de=new Date(t.end);de.setHours(0,0,0,0);
         const dfs=Math.round((ds-t0)/86400000),dfe=Math.round((de-t0)/86400000);
         const ongoing=dfs<=0&&dfe>=0;
         const span=t.start===t.end?t.start:`${t.start}、E{t.end}`;
-        return`<div class="cd-card"><div style="font-size:13px;font-weight:600;margin-bottom:5px">${t.sub}</div><div class="cd-num ${dfs<=3&&!ongoing?'urgent':''}">${ongoing?'中':dfs<=0?'0':dfs}</div><div style="font-size:11px;color:var(--muted);margin-top:4px">${ongoing?'🔥 実施中':dfs===0?'今日から�E�E:dfs+'日征E}</div><div style="font-size:10px;color:var(--muted);margin-top:2px">${span}</div></div>`;
+        return`<div class="cd-card"><div style="font-size:13px;font-weight:600;margin-bottom:5px">${t.sub}</div><div class="cd-num ${dfs<=3&&!ongoing?'urgent':''}">${ongoing?'中':dfs<=0?'0':dfs}</div><div style="font-size:11px;color:var(--muted);margin-top:4px">${ongoing?'🔥 実施中':dfs===0?'今日から�E�E:dfs+'日征E}</div><div style="font-size:10px;color:var(--muted);margin-top:2px">${span}</div></div>`;
       }).join('')+'</div>';
     }
     inner+=`<button class="print-btn" onclick="doPrint()"><i class="ti ti-printer"></i> 今日の予定を印刷する</button>`;
@@ -557,7 +558,7 @@ function buildTT(){
       const idx=c?classes.indexOf(c):-1;
       let cellContent='';
       if(!satOff&&c){
-        // ⑭ カラーシスチE��適用
+        // ⑭ カラーシスチE��適用
         const cs=subColorStyle(c.sub);
         cellContent=`<div class="tt-item" style="${cs}" onclick="askDelClass(${idx})"><div class="tt-item-name">${c.sub}</div><div class="tt-item-time">${p.s} E{p.e}</div></div>`;
       }
@@ -579,36 +580,36 @@ function buildTTSide(){
   let todayHtml=todayC.length
     ?todayC.map(c=>{const p=PERIODS[c.period];return`<div class="tt-side-row"><div class="tt-side-period">${p.l}</div><div class="tt-side-body"><div class="tt-side-sub">${c.sub}</div><div class="tt-side-time">${p.s} E{p.e}</div></div></div>`;}).join('')
     :'<div class="tt-side-empty">今日の授業なぁE/div>';
-  // 直近テスト（上佁E件�E�E  const t0=new Date();t0.setHours(0,0,0,0);
+  // 直近テスト（上佁E件�E�E  const t0=new Date();t0.setHours(0,0,0,0);
   const upTests=tests.slice().sort((a,b)=>a.start.localeCompare(b.start)).filter(t=>{const e=new Date(t.end);e.setHours(0,0,0,0);return e>=t0;}).slice(0,3);
   let testHtml=upTests.length
     ?upTests.map(t=>{const ds2=new Date(t.start);ds2.setHours(0,0,0,0);const df=Math.round((ds2-t0)/86400000);return`<div class="tt-side-row"><div class="tt-side-period" style="color:#DC2626">${df<=0?'中':df+'日'}</div><div class="tt-side-body"><div class="tt-side-sub">${t.sub}</div><div class="tt-side-time">${t.start}、E{t.end}</div></div></div>`;}).join('')
     :'<div class="tt-side-empty">予定なぁE/div>';
   el.innerHTML=`
     <div class="tt-side-sec">今日の授業</div>${todayHtml}
-    <div class="tt-side-sec" style="margin-top:10px">チE��チE/div>${testHtml}
+    <div class="tt-side-sec" style="margin-top:10px">チE��チE/div>${testHtml}
   `;
 }
 
 function buildRoutineList(){
   const el=document.getElementById('routine-card');
-  if(!routines.length){el.innerHTML='<div class="empty-state">ルーチE��ーンがありません<br><span style="opacity:.6;font-size:12px">設定から追加できまぁE/span></div>';return;}
+  if(!routines.length){el.innerHTML='<div class="empty-state">ルーチE��ーンがありません<br><span style="opacity:.6;font-size:12px">設定から追加できまぁE/span></div>';return;}
   el.innerHTML=routines.map((r,i)=>`<div class="card-row"><div class="dot" style="background:#059669"></div><div style="flex:1"><div style="font-size:14px;font-weight:600">${r.name}</div><div style="font-size:12px;color:var(--muted)">${r.time} · ${r.dur}刁E/div></div><span class="pill pill-green">${r.time}</span><button class="del-btn" onclick="delRoutine(${i})">削除</button></div>`).join('');
 }
 
 function buildTaskList(){
   const el=document.getElementById('task-card');
-  if(!tasks.length){el.innerHTML='<div class="empty-state">タスクがありません<br><span style="opacity:.6;font-size:12px">右上�E�E�から追加できまぁE/span></div>';return;}
+  if(!tasks.length){el.innerHTML='<div class="empty-state">タスクがありません<br><span style="opacity:.6;font-size:12px">右上�E�E�から追加できまぁE/span></div>';return;}
   el.innerHTML=tasks.map((t,i)=>`<div class="card-row"><input type="checkbox" ${t.done?'checked':''} onchange="toggleTask(${i})" style="accent-color:var(--acc);width:16px;height:16px;flex-shrink:0;cursor:pointer"><div style="flex:1;${t.done?'opacity:.4;text-decoration:line-through':''}"><div style="font-size:14px">${t.text}</div></div><span class="pill pill-amber">${t.time}</span><button class="del-btn" onclick="delTask(${i})">削除</button></div>`).join('');
 }
 
 function buildSettings(){
   const el=document.getElementById('settings-inner');
-  const clList=classes.length?classes.map((c,i)=>{const p=PERIODS[c.period];return`<div class="reg-item"><div class="dot" style="background:#4f46e5"></div><div style="flex:1"><div style="font-size:13px;font-weight:600">${c.sub}</div><div style="font-size:11px;color:var(--muted)">${DN[c.day]}曁E${p.l} ${p.s} E{p.e}</div></div><button class="del-btn" onclick="delClass(${i});buildSettings()">削除</button></div>`;}).join(''):`<div class="empty-reg">まだ登録されてぁE��せん</div>`;
-  const rtList=routines.length?routines.map((r,i)=>`<div class="reg-item"><div class="dot" style="background:#059669"></div><div style="flex:1"><div style="font-size:13px;font-weight:600">${r.name}</div><div style="font-size:11px;color:var(--muted)">${r.time} · ${r.dur}刁E/div></div><button class="del-btn" onclick="delRoutine(${i});buildSettings()">削除</button></div>`).join(''):`<div class="empty-reg">まだ登録されてぁE��せん</div>`;
-  const teList=tests.length?tests.map((t,i)=>{const t0=new Date();t0.setHours(0,0,0,0);const ds=new Date(t.start);ds.setHours(0,0,0,0);const df=Math.round((ds-t0)/86400000);return`<div class="reg-item"><div class="dot" style="background:#dc2626"></div><div style="flex:1"><div style="font-size:13px;font-weight:600">${t.sub}</div><div style="font-size:11px;color:var(--muted)">${t.start}、E{t.end} · ${df<=0?'実施中/終亁E:df+'日征E}</div></div><button class="del-btn" onclick="delTest(${i});buildSettings()">削除</button></div>`;}).join(''):`<div class="empty-reg">まだ登録されてぁE��せん</div>`;
-  const holList=holidays.length?holidays.map((h,i)=>`<div class="reg-item"><div class="dot" style="background:#f97316"></div><div style="flex:1"><div style="font-size:13px;font-weight:600">${h.name||'休校日'}</div><div style="font-size:11px;color:var(--muted)">${h.date}</div></div><button class="del-btn" onclick="delHoliday(${i});buildSettings()">削除</button></div>`).join(''):`<div class="empty-reg">まだ登録されてぁE��せん</div>`;
-  const vacList=vacations.length?vacations.map((v,i)=>`<div class="reg-item"><div class="dot" style="background:#7c3aed"></div><div style="flex:1"><div style="font-size:13px;font-weight:600">${v.name}</div><div style="font-size:11px;color:var(--muted)">${v.start}、E{v.end}</div></div><button class="del-btn" onclick="delVacation(${i});buildSettings()">削除</button></div>`).join(''):`<div class="empty-reg">まだ登録されてぁE��せん</div>`;
+  const clList=classes.length?classes.map((c,i)=>{const p=PERIODS[c.period];return`<div class="reg-item"><div class="dot" style="background:#4f46e5"></div><div style="flex:1"><div style="font-size:13px;font-weight:600">${c.sub}</div><div style="font-size:11px;color:var(--muted)">${DN[c.day]}曁E${p.l} ${p.s} E{p.e}</div></div><button class="del-btn" onclick="delClass(${i});buildSettings()">削除</button></div>`;}).join(''):`<div class="empty-reg">まだ登録されてぁE��せん</div>`;
+  const rtList=routines.length?routines.map((r,i)=>`<div class="reg-item"><div class="dot" style="background:#059669"></div><div style="flex:1"><div style="font-size:13px;font-weight:600">${r.name}</div><div style="font-size:11px;color:var(--muted)">${r.time} · ${r.dur}刁E/div></div><button class="del-btn" onclick="delRoutine(${i});buildSettings()">削除</button></div>`).join(''):`<div class="empty-reg">まだ登録されてぁE��せん</div>`;
+  const teList=tests.length?tests.map((t,i)=>{const t0=new Date();t0.setHours(0,0,0,0);const ds=new Date(t.start);ds.setHours(0,0,0,0);const df=Math.round((ds-t0)/86400000);return`<div class="reg-item"><div class="dot" style="background:#dc2626"></div><div style="flex:1"><div style="font-size:13px;font-weight:600">${t.sub}</div><div style="font-size:11px;color:var(--muted)">${t.start}、E{t.end} · ${df<=0?'実施中/終亁E:df+'日征E}</div></div><button class="del-btn" onclick="delTest(${i});buildSettings()">削除</button></div>`;}).join(''):`<div class="empty-reg">まだ登録されてぁE��せん</div>`;
+  const holList=holidays.length?holidays.map((h,i)=>`<div class="reg-item"><div class="dot" style="background:#f97316"></div><div style="flex:1"><div style="font-size:13px;font-weight:600">${h.name||'休校日'}</div><div style="font-size:11px;color:var(--muted)">${h.date}</div></div><button class="del-btn" onclick="delHoliday(${i});buildSettings()">削除</button></div>`).join(''):`<div class="empty-reg">まだ登録されてぁE��せん</div>`;
+  const vacList=vacations.length?vacations.map((v,i)=>`<div class="reg-item"><div class="dot" style="background:#7c3aed"></div><div style="flex:1"><div style="font-size:13px;font-weight:600">${v.name}</div><div style="font-size:11px;color:var(--muted)">${v.start}、E{v.end}</div></div><button class="del-btn" onclick="delVacation(${i});buildSettings()">削除</button></div>`).join(''):`<div class="empty-reg">まだ登録されてぁE��せん</div>`;
   const dayBtns=DAYS_WD.map(({d,l})=>`<button class="day-btn${sfDay===d?' sel':''}" onclick="sfSelectDay(${d})">${l}</button>`).join('');
   const maxP=(sfDay===6)?SAT_MAX:PERIODS.length;
   const periodBtns=PERIODS.slice(0,maxP).map((p,i)=>`<button class="period-btn${sfPeriod===i?' sel':''}" onclick="sfSelectPeriod(${i})"><div class="pb-limit">${p.l}</div><div class="pb-time">${p.s}</div><div class="pb-time"> E{p.e}</div></button>`).join('');
@@ -616,7 +617,7 @@ function buildSettings(){
   if(_sbUser){
     acctHtml=`<div class="acct-card"><div class="acct-avatar">👤</div><div class="acct-email">${_sbUser.email}</div><div class="acct-status">ログイン中 <span class="sync-badge sync-ok">クラウド同期ON</span></div><div class="acct-btns"><button class="acct-sync-btn" onclick="doSync()"><i class="ti ti-refresh"></i><span>クラウド同朁E/span></button><button class="acct-out-btn" onclick="doLogout()">ログアウチE/button></div></div>`;
   } else {
-    acctHtml=`<div class="acct-login-btn" onclick="openAuth()"><div style="display:flex;align-items:center;gap:12px"><div style="width:36px;height:36px;border-radius:10px;background:var(--acc-soft);display:flex;align-items:center;justify-content:center;color:var(--acc);font-size:18px"><i class="ti ti-user"></i></div><div><div style="font-size:14px;font-weight:600;color:var(--text)">ログイン / アカウント登録</div><div style="font-size:11px;color:var(--muted);margin-top:1px">チE��イス間でチE�Eタを同朁E/div></div></div><div style="display:flex;align-items:center;gap:6px"><span class="sync-badge sync-off">未ログイン</span><i class="ti ti-chevron-right" style="color:var(--muted);font-size:16px"></i></div></div>`;
+    acctHtml=`<div class="acct-login-btn" onclick="openAuth()"><div style="display:flex;align-items:center;gap:12px"><div style="width:36px;height:36px;border-radius:10px;background:var(--acc-soft);display:flex;align-items:center;justify-content:center;color:var(--acc);font-size:18px"><i class="ti ti-user"></i></div><div><div style="font-size:14px;font-weight:600;color:var(--text)">ログイン / アカウント登録</div><div style="font-size:11px;color:var(--muted);margin-top:1px">チE��イス間でチE�Eタを同朁E/div></div></div><div style="display:flex;align-items:center;gap:6px"><span class="sync-badge sync-off">未ログイン</span><i class="ti ti-chevron-right" style="color:var(--muted);font-size:16px"></i></div></div>`;
   }
   el.innerHTML=acctHtml+`
     <div class="settings-card">
@@ -630,19 +631,19 @@ function buildSettings(){
       </div>
     </div>
     <div class="settings-card">
-      <div class="settings-card-header"><i class="ti ti-refresh"></i><div class="settings-card-header-text">ルーチE��ーンを追加</div></div>
+      <div class="settings-card-header"><i class="ti ti-refresh"></i><div class="settings-card-header-text">ルーチE��ーンを追加</div></div>
       <div class="settings-card-body">
-        <span class="sf-label">名前</span><input class="sf-input" type="text" id="sf-rt-name" placeholder="侁E 朝�E単語帳" />
-        <div class="sf-row2"><div><span class="sf-label">開始時刻</span><input class="sf-input" type="time" id="sf-rt-time" value="07:00" /></div><div><span class="sf-label">時間�E��E�E�E/span><input class="sf-input" type="number" id="sf-rt-dur" value="30" min="5" max="180" /></div></div>
+        <span class="sf-label">名前</span><input class="sf-input" type="text" id="sf-rt-name" placeholder="侁E 朝�E単語帳" />
+        <div class="sf-row2"><div><span class="sf-label">開始時刻</span><input class="sf-input" type="time" id="sf-rt-time" value="07:00" /></div><div><span class="sf-label">時間�E��E�E�E/span><input class="sf-input" type="number" id="sf-rt-dur" value="30" min="5" max="180" /></div></div>
         <button class="sf-btn" onclick="addRoutine2()"><i class="ti ti-plus"></i>追加する</button>
         <div class="reg-list">${rtList}</div>
       </div>
     </div>
     <div class="settings-card">
-      <div class="settings-card-header"><i class="ti ti-clock"></i><div class="settings-card-header-text">チE��ト期間を追加</div></div>
+      <div class="settings-card-header"><i class="ti ti-clock"></i><div class="settings-card-header-text">チE��ト期間を追加</div></div>
       <div class="settings-card-body">
-        <span class="sf-label">科目名（空欄OK�E�E/span><input class="sf-input" type="text" id="sf-test-sub" placeholder="侁E 中間テスチE />
-        <div class="sf-row2"><div><span class="sf-label">開始日</span><input class="sf-input" type="date" id="sf-test-start" /></div><div><span class="sf-label">終亁E��</span><input class="sf-input" type="date" id="sf-test-end" /></div></div>
+        <span class="sf-label">科目名（空欄OK�E�E/span><input class="sf-input" type="text" id="sf-test-sub" placeholder="侁E 中間テスチE />
+        <div class="sf-row2"><div><span class="sf-label">開始日</span><input class="sf-input" type="date" id="sf-test-start" /></div><div><span class="sf-label">終亁E��</span><input class="sf-input" type="date" id="sf-test-end" /></div></div>
         <button class="sf-btn" onclick="addTest2()"><i class="ti ti-plus"></i>追加する</button>
         <div class="reg-list">${teList}</div>
       </div>
@@ -651,7 +652,7 @@ function buildSettings(){
       <div class="settings-card-header"><i class="ti ti-beach"></i><div class="settings-card-header-text">休校日を追加</div></div>
       <div class="settings-card-body">
         <span class="sf-label">日仁E/span><input class="sf-input" type="date" id="sf-hol-date" />
-        <span class="sf-label">名称�E�任意！E/span><input class="sf-input" type="text" id="sf-hol-name" placeholder="侁E 遠足" />
+        <span class="sf-label">名称�E�任意！E/span><input class="sf-input" type="text" id="sf-hol-name" placeholder="侁E 遠足" />
         <button class="sf-btn" onclick="addHoliday2()"><i class="ti ti-plus"></i>追加する</button>
         <div class="reg-list">${holList}</div>
       </div>
@@ -666,12 +667,12 @@ function buildSettings(){
           <button class="vac-preset-btn" onclick="sfVacPreset('春休み')">春休み</button>
         </div>
         <input class="sf-input" type="text" id="sf-vac-name" placeholder="侁E 夏休み" style="margin-top:6px"/>
-        <div class="sf-row2"><div><span class="sf-label">開始日</span><input class="sf-input" type="date" id="sf-vac-start" /></div><div><span class="sf-label">終亁E��</span><input class="sf-input" type="date" id="sf-vac-end" /></div></div>
+        <div class="sf-row2"><div><span class="sf-label">開始日</span><input class="sf-input" type="date" id="sf-vac-start" /></div><div><span class="sf-label">終亁E��</span><input class="sf-input" type="date" id="sf-vac-end" /></div></div>
         <button class="sf-btn" onclick="addVacation2()"><i class="ti ti-plus"></i>追加する</button>
         <div class="reg-list">${vacList}</div>
       </div>
     </div>`;
-  // ① 時間割一覧アコーチE��オンを後から追加
+  // ① 時間割一覧アコーチE��オンを後から追加
   const clCard=el.querySelector('.settings-card');
   if(clCard){
     const clListWrap=document.createElement('div');
@@ -679,13 +680,13 @@ function buildSettings(){
     clListWrap.innerHTML=`<button class="sf-accordion-btn" onclick="sfToggleClassList(this)" type="button"><i class="ti ti-list" style="font-size:14px"></i>時間割一覧を見る<i class="ti ti-chevron-down sf-acc-arrow" style="font-size:13px;margin-left:auto"></i></button><div class="sf-accordion-body" id="sf-class-list-wrap">${clList}</div>`;
     const sfBtn=clCard.querySelector('.sf-btn');
     if(sfBtn){sfBtn.after(clListWrap);}
-    // 既存�Ereg-listを削除�E�アコーチE��オンに移した�E�E    const oldList=clCard.querySelector('#sf-class-list');if(oldList)oldList.remove();
+    // 既存�Ereg-listを削除�E�アコーチE��オンに移した�E�E    const oldList=clCard.querySelector('#sf-class-list');if(oldList)oldList.remove();
   }
-  // ④ 科目名欁E��既存データを反映
+  // ④ 科目名欁E��既存データを反映
   setTimeout(sfLoadExisting,10);
 }
 
-// ⑪ 長期休暇ヘルパ�E
+// ⑪ 長期休暇ヘルパ�E
 function isInVacation(ds){return vacations.some(v=>ds>=v.start&&ds<=v.end);}
 function getVacation(ds){return vacations.find(v=>ds>=v.start&&ds<=v.end);}
 function addVacation2(){
@@ -697,7 +698,7 @@ function addVacation2(){
 }
 function delVacation(i){vacations.splice(i,1);sv();buildSettings();if(currentTab==='today')buildToday();}
 function sfVacPreset(name){const inp=document.getElementById('sf-vac-name');if(inp)inp.value=name;}
-// ⑪ 長期休暇のCSS用プリセチE��
+// ⑪ 長期休暇のCSS用プリセチE��
 function vacation_presets_css_dummy(){}
 
 // ① sfToggleClassList 関数追加
@@ -709,17 +710,17 @@ function sfToggleClassList(btn){
   btn.classList.toggle('open',!isOpen);
 }
 
-// ③④ 曜日・時限選択：�Eタンのみ更新�E��E体�E描画しなぁE��Efunction sfSelectDay(d){
+// ③④ 曜日・時限選択：�Eタンのみ更新�E��E体�E描画しなぁE��Efunction sfSelectDay(d){
   sfDay=d;
   // 曜日ボタンのみ更新
   document.querySelectorAll('.day-btn').forEach((btn,i)=>{
     btn.classList.toggle('sel',DAYS_WD[i]&&DAYS_WD[i].d===d);
   });
-  // 時限グリチE��を�E描画�E�曜日が変わると最大時限も変わるためE��E  const maxP=(sfDay===6)?SAT_MAX:PERIODS.length;
+  // 時限グリチE��を�E描画�E�曜日が変わると最大時限も変わるためE��E  const maxP=(sfDay===6)?SAT_MAX:PERIODS.length;
   const pg=document.querySelector('.period-grid');
   if(pg){pg.innerHTML=PERIODS.slice(0,maxP).map((p,i)=>`<button class="period-btn${sfPeriod<maxP&&sfPeriod===i?' sel':''}" onclick="sfSelectPeriod(${i})"><div class="pb-limit">${p.l}</div><div class="pb-time">${p.s}</div><div class="pb-time"> E{p.e}</div></button>`).join('');}
   if(sfPeriod>=maxP)sfPeriod=0;
-  // ④ 既存データを読み直して科目名欁E��反映
+  // ④ 既存データを読み直して科目名欁E��反映
   sfLoadExisting();
 }
 function sfSelectPeriod(i){
@@ -728,11 +729,11 @@ function sfSelectPeriod(i){
   document.querySelectorAll('.period-btn').forEach((btn,j)=>{
     btn.classList.toggle('sel',j===i);
   });
-  // ④ 既存データを読み直して科目名欁E��反映
+  // ④ 既存データを読み直して科目名欁E��反映
   sfLoadExisting();
 }
 function sfLoadExisting(){
-  // ④ セル刁E��時に保存済み科目を正しく表示
+  // ④ セル刁E��時に保存済み科目を正しく表示
   const inp=document.getElementById('sf-sub');
   if(!inp)return;
   const ex=classes.find(c=>c.day==sfDay&&c.period==sfPeriod);
@@ -746,7 +747,7 @@ function addClass2(){
   const ex=classes.find(c=>c.day==sfDay&&c.period==sfPeriod);
   if(ex)ex.sub=sub;else classes.push({day:sfDay,period:sfPeriod,sub});
   sv();buildSettings();buildTT();if(currentTab==='today')buildToday();
-  // 入力欁E��保持
+  // 入力欁E��保持
   const inp=document.getElementById('sf-sub');if(inp){inp.value=sub;inp.focus();}
 }
 function addRoutine2(){
@@ -759,13 +760,13 @@ function addTest2(){
   const sub=(document.getElementById('sf-test-sub').value||'').trim();
   const start=document.getElementById('sf-test-start').value;
   const end=document.getElementById('sf-test-end').value||start;
-  if(!start)return;tests.push({sub:sub||'チE��ト期閁E,start,end});tests.sort((a,b)=>a.start.localeCompare(b.start));sv();buildSettings();if(currentTab==='today')buildToday();
+  if(!start)return;tests.push({sub:sub||'チE��ト期閁E,start,end});tests.sort((a,b)=>a.start.localeCompare(b.start));sv();buildSettings();if(currentTab==='today')buildToday();
 }
 function addHoliday2(){
   const date=document.getElementById('sf-hol-date').value;
   const name=(document.getElementById('sf-hol-name').value||'').trim();
   if(!date)return;
-  if(holidays.find(h=>h.date===date)){alert('すでに登録されてぁE��ぁE);return;}
+  if(holidays.find(h=>h.date===date)){alert('すでに登録されてぁE��ぁE);return;}
   holidays.push({date,name});holidays.sort((a,b)=>a.date.localeCompare(b.date));sv();buildSettings();updateCal();if(currentTab==='today')buildToday();
 }
 function openDrawer(){const ov=document.getElementById('drawer-overlay');ov.classList.add('open');ov.style.display='flex';setTimeout(()=>document.getElementById('dw-text').focus(),200);}
@@ -783,8 +784,8 @@ function askDelClass(i){
   _pendingDelIdx=i;
   const c=classes[i];if(!c)return;
   const p=PERIODS[c.period];
-  document.getElementById('cm-title').textContent='授業を削除しますか�E�E;
-  document.getElementById('cm-sub').textContent=`${DN[c.day]}曁E${p.l}�E�E{p.s} E{p.e}�E�\n${c.sub}`;
+  document.getElementById('cm-title').textContent='授業を削除しますか�E�E;
+  document.getElementById('cm-sub').textContent=`${DN[c.day]}曁E${p.l}�E�E{p.s} E{p.e}�E�\n${c.sub}`;
   const ov=document.getElementById('confirm-overlay');
   ov.classList.add('open');ov.style.display='flex';
 }
@@ -807,24 +808,24 @@ function delHoliday(i){holidays.splice(i,1);sv();updateCal();if(currentTab==='to
 function doPrint(){
   const dow=selDow,isSat=dow===6,off=isOff(selDS);
   const p=selDS.split('-');
-  const dl=`${p[0]}年${parseInt(p[1])}朁E{parseInt(p[2])}日�E�E{DN[dow]}�E�`;
+  const dl=`${p[0]}年${parseInt(p[1])}朁E{parseInt(p[2])}日�E�E{DN[dow]}�E�`;
   const maxP=isSat?SAT_MAX:PERIODS.length;
   const dc=(!off&&dow>=1&&dow<=6)?classes.filter(c=>c.day==dow&&c.period<maxP):[];
-  const cR=dc.map(c=>{const pp=PERIODS[c.period];return`<div class="print-row"><div class="print-period-label">${pp.l}</div><div class="print-time">${pp.s} E{pp.e}</div><div class="print-subject">${c.sub}</div></div>`;}).join('')||'<div class="print-row" style="color:#999;font-size:13px">�E�授業なし！E/div>';
-  const rR=routines.map(r=>`<div class="print-routine-row"><div class="print-routine-time">${r.time}</div><div class="print-routine-name">${r.name}</div><div class="print-routine-dur">${r.dur}刁E/div></div>`).join('')||'<div class="print-row" style="color:#999;font-size:13px">�E�なし！E/div>';
-  const tR=tasks.filter(t=>!t.done).map(t=>`<div class="print-task-row"><div class="print-routine-time">${t.time}</div><div class="print-routine-name">□ ${t.text}</div></div>`).join('')||'<div class="print-row" style="color:#999;font-size:13px">�E�なし！E/div>';
+  const cR=dc.map(c=>{const pp=PERIODS[c.period];return`<div class="print-row"><div class="print-period-label">${pp.l}</div><div class="print-time">${pp.s} E{pp.e}</div><div class="print-subject">${c.sub}</div></div>`;}).join('')||'<div class="print-row" style="color:#999;font-size:13px">�E�授業なし！E/div>';
+  const rR=routines.map(r=>`<div class="print-routine-row"><div class="print-routine-time">${r.time}</div><div class="print-routine-name">${r.name}</div><div class="print-routine-dur">${r.dur}刁E/div></div>`).join('')||'<div class="print-row" style="color:#999;font-size:13px">�E�なし！E/div>';
+  const tR=tasks.filter(t=>!t.done).map(t=>`<div class="print-task-row"><div class="print-routine-time">${t.time}</div><div class="print-routine-name">□ ${t.text}</div></div>`).join('')||'<div class="print-row" style="color:#999;font-size:13px">�E�なし！E/div>';
   const t0=new Date();t0.setHours(0,0,0,0);
   const up=tests.filter(t=>{const e=new Date(t.end);e.setHours(0,0,0,0);return e>=t0;}).slice(0,5);
-  const teR=up.map(t=>{const ds=new Date(t.start);ds.setHours(0,0,0,0);const df=Math.round((ds-t0)/86400000);return`<div class="print-row"><span style="font-weight:600">${t.sub}</span><span>${t.start}、E{t.end}</span><span>${df<=0?'実施中':df+'日征E}</span></div>`;}).join('')||'<div class="print-row">�E�なし！E/div>';
+  const teR=up.map(t=>{const ds=new Date(t.start);ds.setHours(0,0,0,0);const df=Math.round((ds-t0)/86400000);return`<div class="print-row"><span style="font-weight:600">${t.sub}</span><span>${t.start}、E{t.end}</span><span>${df<=0?'実施中':df+'日征E}</span></div>`;}).join('')||'<div class="print-row">�E�なし！E/div>';
   const pa=document.getElementById('print-area');
-  pa.innerHTML=`<div class="print-header"><div class="print-header-brand" style="font-family:'Manrope',sans-serif;font-weight:800;letter-spacing:-.5px">NEXA</div><div class="print-header-date">${dl}</div></div><div class="print-section"><h3>時間割</h3>${cR}</div><div class="print-section"><h3>ルーチE��ーン</h3>${rR}</div><div class="print-section"><h3>タスク</h3>${tR}</div><div class="print-section"><h3>チE��チE/h3>${teR}</div><div style="margin-top:28px;font-size:9px;color:#ccc;text-align:right;letter-spacing:.02em">${new Date().toLocaleString('ja-JP')}</div>`;
+  pa.innerHTML=`<div class="print-header"><div class="print-header-brand" style="font-family:'Manrope',sans-serif;font-weight:800;letter-spacing:-.5px">NEXA</div><div class="print-header-date">${dl}</div></div><div class="print-section"><h3>時間割</h3>${cR}</div><div class="print-section"><h3>ルーチE��ーン</h3>${rR}</div><div class="print-section"><h3>タスク</h3>${tR}</div><div class="print-section"><h3>チE��チE/h3>${teR}</div><div style="margin-top:28px;font-size:9px;color:#ccc;text-align:right;letter-spacing:.02em">${new Date().toLocaleString('ja-JP')}</div>`;
   pa.style.display='block';window.print();setTimeout(()=>{pa.style.display='none';},500);
 }
 const now=new Date();
 selDow=now.getDay();selDS=toDS(now);
 document.getElementById('page-big').textContent=`${now.getMonth()+1}朁E{now.getDate()}日`;
 buildWeek();buildToday();
-initAuth(); // Supabase セチE��ョン復允E
+initAuth(); // Supabase セチE��ョン復允E
 // === NEXA Splash ===
 (function(){
   const splash = document.getElementById('nexa-splash');
