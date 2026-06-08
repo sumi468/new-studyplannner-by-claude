@@ -1,0 +1,21 @@
+
+<div class="app-shell">
+  <div class="topbar">
+    <div class="topbar-head">
+      <div>
+        <div class="page-small" id="page-small">今日</div>
+        <div class="page-big" id="page-big"></div>
+      </div>
+      <div class="top-right">
+        <button class="icon-btn" onclick="prevPeriod()" aria-label="前へ"><i class="ti ti-chevron-left"></i></button>
+        <button class="icon-btn" onclick="nextPeriod()" aria-label="次へ"><i class="ti ti-chevron-right"></i></button>
+        <button class="icon-btn" onclick="doPrint()" aria-label="印刷"><i class="ti ti-printer"></i></button>
+        <button class="fab" onclick="openDrawer()" aria-label="タスク追加"><i class="ti ti-plus"></i></button>
+      </div>
+    </div>
+    <div class="mode-strip">
+      <button class="mode-btn active" onclick="setMode('week')" id="mode-week">週</button>
+      <button class="mode-btn" onclick="setMode('month')" id="mode-month">朁E/button>
+    </div>
+    <div id="cal-area"></div>
+  </div>
