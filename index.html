@@ -1340,7 +1340,10 @@ function buildToday(){
     // タイムライン（ルーティーン＋タスクのみ）
     const events=[];
     routines.forEach(r=>events.push({time:r.time,end:mt(tm(r.time)+r.dur),title:r.name,type:'routine'}));
-    tasks.filter(t=>!t.done).forEach(t=>events.push({time:t.time,end:mt(tm(t.time)+30),title:t.text,type:'todo'}));
+    tasks.filter(t=>!t.done).forEach(t=>{
+  const endMin=t.timeEnd?tm(t.timeEnd):tm(t.time)+30;
+  events.push({time:t.time,end:mt(endMin),title:t.text,type:'todo'});
+});
     const START_H=4,END_H=22;
     const nowMin=now.getHours()*60+now.getMinutes();
     let tl=`<div class="timeline-wrap">`;
