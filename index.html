@@ -1341,6 +1341,7 @@ function buildToday(){
     const events=[];
     routines.forEach(r=>events.push({time:r.time,end:mt(tm(r.time)+r.dur),title:r.name,type:'routine'}));
     tasks.filter(t=>!t.done).forEach(t=>{
+  if(!t.time)return; // 開始時間なしはタイムラインに載せない
   const endMin=t.timeEnd?tm(t.timeEnd):tm(t.time)+30;
   events.push({time:t.time,end:mt(endMin),title:t.text,type:'todo'});
 });
