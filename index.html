@@ -1478,7 +1478,10 @@ function buildRoutineList(){
 function buildTaskList(){
   const el=document.getElementById('task-card');
   if(!tasks.length){el.innerHTML='<div class="empty-state">タスクがありません<br><span style="opacity:.6;font-size:12px">右上の＋から追加できます</span></div>';return;}
-  el.innerHTML=tasks.map((t,i)=>`<div class="card-row"><input type="checkbox" ${t.done?'checked':''} onchange="toggleTask(${i})" style="accent-color:var(--acc);width:16px;height:16px;flex-shrink:0;cursor:pointer"><div style="flex:1;${t.done?'opacity:.4;text-decoration:line-through':''}"><div style="font-size:14px">${t.text}</div></div><span class="pill pill-amber">${t.time}</span><button class="del-btn" onclick="delTask(${i})">削除</button></div>`).join('');
+  el.innerHTML=tasks.map((t,i)=>{
+    const timeLabel=t.timeEnd?`${t.time}〜${t.timeEnd}`:t.time;
+    return`<div class="card-row"><input type="checkbox" ${t.done?'checked':''} onchange="toggleTask(${i})" style="accent-color:var(--acc);width:16px;height:16px;flex-shrink:0;cursor:pointer"><div style="flex:1;${t.done?'opacity:.4;text-decoration:line-through':''}"><div style="font-size:14px">${t.text}</div></div><span class="pill pill-amber">${timeLabel}</span><button class="del-btn" onclick="delTask(${i})">削除</button></div>`;
+  }).join('');
 }
 
 function buildSettings(){
