@@ -1655,8 +1655,11 @@ function closeDrawer(){const ov=document.getElementById('drawer-overlay');ov.sty
 function closeBg(e){if(e.target===document.getElementById('drawer-overlay'))closeDrawer();}
 function addTaskD(){
   const text=(document.getElementById('dw-text').value||'').trim();
-  const time=document.getElementById('dw-time').value;
-  if(!text)return;tasks.push({text,time,done:false});document.getElementById('dw-text').value='';
+  const timeStart=document.getElementById('dw-time').value;
+  const timeEnd=document.getElementById('dw-time-end')?document.getElementById('dw-time-end').value:'';
+  if(!text)return;
+  tasks.push({text,time:timeStart,timeStart,timeEnd,done:false});
+  document.getElementById('dw-text').value='';
   sv();closeDrawer();if(currentTab==='task')buildTaskList();if(currentTab==='today')buildToday();
 }
 function delClass(i){classes.splice(i,1);sv();buildTT();if(currentTab==='today')buildToday();}
