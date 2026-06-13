@@ -434,6 +434,15 @@ function setTab(t,label,idx){
     const pg=document.getElementById('page-big');pg.style.opacity='0';setTimeout(()=>{pg.textContent='';pg.style.opacity='1';},120);
   } else {document.getElementById('page-small').textContent='今日';fadeDateTo(selDS);}
   closeSchool();
+  // 修正2: タブに応じてFABボタンのonclickを切り替える
+  const fab=document.getElementById('fab-add-btn');
+  if(fab){
+    if(t==='routine'){
+      fab.onclick=openRoutineDrawer;
+    } else {
+      fab.onclick=openDrawer;
+    }
+  }
   if(t==='today'){buildToday();updateCal();}
   else if(t==='school')buildTT();
   else if(t==='routine')buildRoutineList();
@@ -798,8 +807,117 @@ function addHoliday2(){
   if(holidays.find(h=>h.date===date)){alert('すでに登録されています');return;}
   holidays.push({date,name});holidays.sort((a,b)=>a.date.localeCompare(b.date));sv();buildSettings();updateCal();if(currentTab==='today')buildToday();
 }
-function openDrawer(){const ov=document.getElementById('drawer-overlay');ov.classList.add('open');ov.style.display='flex';setTimeout(()=>document.getElementById('dw-text').focus(),200);}
-function closeDrawer(){const ov=document.getElementById('drawer-overlay');ov.style.opacity='0';setTimeout(()=>{ov.style.display='none';ov.style.opacity='';ov.classList.remove('open');},180);}
+function openDrawer(){
+  const ov=document.getElementById('drawer-overlay');
+  ov.classList.remove('closing');
+  // overlayを中央揃え・背景は半透明黒のみ
+  ov.style.cssText='position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.5);z-index:9000;';
+  // drawer-box: 白背景・中央配置・位置ずれリセット
+  const box=ov.querySelector('.drawer-box')||ov.querySelector('[class*="drawer"]');
+  if(box){
+    box.style.cssText='background:#ffffff;border-radius:16px;width:92%;max-width:440px;padding:20px;box-sizing:border-box;transform:none;margin:0;position:relative;left:auto;top:auto;opacity:1;';
+  }
+  requestAnimationFrame(()=>{
+    ov.classList.add('open');
+    setTimeout(()=>{ const el=document.getElementById('dw-text'); if(el)el.focus(); },200);
+  });
+}
+
+// 修正2: ルーティーン追加用drawer（タスクdrawerとは別モーダル）
+function openRoutineDrawer(){
+  // ルーティーン追加はSettingsカードにあるが、手軽に追加できるインラインモーダルを生成
+  let rdOv=document.getElementById('routine-drawer-overlay');
+  if(!rdOv){
+    rdOv=document.createElement('div');
+    rdOv.id='routine-drawer-overlay';
+    rdOv.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:flex-end;justify-content:center;z-index:9000;transition:opacity .18s';
+    rdOv.onclick=function(e){if(e.target===rdOv)closeRoutineDrawer();};
+    rdOv.innerHTML=`
+      <div id="routine-drawer-box" style="background:var(--card,#fff);width:100%;max-width:520px;border-radius:20px 20px 0 0;padding:20px 20px 32px;box-sizing:border-box;transform:translateY(100%);transition:transform .25s cubic-bezier(.32,1,.25,1)">
+        <div style="width:36px;height:4px;background:var(--border,#e2e8f0);border-radius:2px;margin:0 auto 16px"></div>
+        <div style="font-size:16px;font-weight:700;margin-bottom:16px;color:var(--text,#1e293b)">ルーティーンを追加</div>
+        <div style="margin-bottom:12px">
+          <div style="font-size:12px;color:var(--muted,#64748b);margin-bottom:6px;font-weight:500">名前</div>
+          <input id="rd-name" type="text" placeholder="例: 朝の単語帳" style="width:100%;box-sizing:border-box;padding:10px 12px;border:1.5px solid var(--border,#e2e8f0);border-radius:10px;font-size:14px;background:var(--bg,#f8fafc);color:var(--text,#1e293b);outline:none"/>
+        </div>
+        <div style="display:flex;gap:10px;margin-bottom:18px">
+          <div style="flex:1">
+            <div style="font-size:12px;color:var(--muted,#64748b);margin-bottom:6px;font-weight:500">開始時刻</div>
+            <input id="rd-time" type="time" value="07:00" style="width:100%;box-sizing:border-box;padding:10px 12px;border:1.5px solid var(--border,#e2e8f0);border-radius:10px;font-size:14px;background:var(--bg,#f8fafc);color:var(--text,#1e293b);outline:none"/>
+          </div>
+          <div style="flex:1">
+            <div style="font-size:12px;color:var(--muted,#64748b);margin-bottom:6px;font-weight:500">時間（分）</div>
+            <input id="rd-dur" type="number" value="30" min="5" max="180" style="width:100%;box-sizing:border-box;padding:10px 12px;border:1.5px solid var(--border,#e2e8f0);border-radius:10px;font-size:14px;background:var(--bg,#f8fafc);color:var(--text,#1e293b);outline:none"/>
+          </div>
+        </div>
+        <button id="rd-submit" onclick="addRoutineFromDrawer()" style="width:100%;padding:13px;background:var(--acc,#2563eb);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;transition:background .15s">追加する</button>
+      </div>`;
+    document.body.appendChild(rdOv);
+  }
+  rdOv.classList.remove('closing');
+  rdOv.style.display='flex';
+  requestAnimationFrame(()=>{
+    rdOv.style.opacity='1';
+    const box=document.getElementById('routine-drawer-box');
+    if(box)box.style.transform='translateY(0)';
+    setTimeout(()=>{ const el=document.getElementById('rd-name'); if(el)el.focus(); },200);
+  });
+}
+function closeRoutineDrawer(){
+  const rdOv=document.getElementById('routine-drawer-overlay');
+  if(!rdOv)return;
+  // 修正3: 閉じるときスライドアウトアニメーション
+  const box=document.getElementById('routine-drawer-box');
+  if(box)box.style.transform='translateY(100%)';
+  rdOv.style.opacity='0';
+  setTimeout(()=>{ rdOv.style.display='none'; rdOv.style.opacity=''; },260);
+}
+function addRoutineFromDrawer(){
+  const name=(document.getElementById('rd-name').value||'').trim();
+  const time=document.getElementById('rd-time').value||'07:00';
+  const dur=parseInt(document.getElementById('rd-dur').value)||30;
+  if(!name)return;
+  routines.push({name,time,dur});
+  sv();
+  buildRoutineList();
+  if(currentTab==='today')buildToday();
+  const btn=document.getElementById('rd-submit');
+  if(btn){
+    btn.textContent='✓ 追加しました';
+    btn.style.background='#16a34a';
+    btn.disabled=true;
+    setTimeout(()=>{
+      btn.textContent='追加する';
+      btn.style.background='';
+      btn.disabled=false;
+      closeRoutineDrawer();
+    },800);
+  } else {
+    closeRoutineDrawer();
+  }
+}
+
+// 閉じるアニメーション: フェードアウト
+function closeDrawer(){
+  const ov=document.getElementById('drawer-overlay');
+  const box=ov.querySelector('.drawer-box')||ov.querySelector('[class*="drawer-b"]');
+  // フェードアウト
+  ov.style.transition='opacity .2s';
+  ov.style.opacity='0';
+  if(box){
+    box.style.transition='transform .2s cubic-bezier(.4,0,1,1),opacity .2s';
+    box.style.transform='scale(0.96)';
+    box.style.opacity='0';
+  }
+  setTimeout(()=>{
+    ov.style.display='none';
+    ov.style.opacity='';
+    ov.style.transition='';
+    ov.classList.remove('open');
+    // 次回open時のためリセット
+    if(box){box.style.transform='';box.style.transition='';box.style.opacity='';}
+  },200);
+}
 function closeBg(e){if(e.target===document.getElementById('drawer-overlay'))closeDrawer();}
 function addTaskD(){
   const text=(document.getElementById('dw-text').value||'').trim();
