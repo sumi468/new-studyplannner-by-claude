@@ -545,34 +545,6 @@ function closeSchool(){schoolOpen=false;const p=document.getElementById('school-
 
 function buildTT(){
   const now=new Date(),td=now.getDay();
-  // ⑦ 今日の授業カード
-  (function buildTodayCard(){
-    const ds=toDS(now),isSat=td===6,off=isOff(ds);
-    const maxP=isSat?SAT_MAX:PERIODS.length;
-    const todayC=(!off&&td>=1&&td<=6)?classes.filter(c=>c.day==td&&c.period<maxP).sort((a,b)=>a.period-b.period):[];
-    let cardHtml='';
-    if(todayC.length>0){
-      const rows=todayC.map(c=>{
-        const sc=getSubjectColor(c.sub);
-        return `<div class="today-card-row"><span class="today-card-period" style="color:${sc.accent}">${PERIODS[c.period].l}</span><span class="today-card-sub" style="color:${sc.text}">${c.sub}</span></div>`;
-      }).join('');
-      cardHtml=`<div class="today-class-card"><div class="today-class-card-title">今日の授業</div><div class="today-class-card-list">${rows}</div></div>`;
-    } else if(!off&&td>=1&&td<=6){
-      cardHtml=`<div class="today-class-card today-class-card-empty"><div class="today-class-card-title">今日の授業</div><div style="font-size:13px;color:var(--muted);margin-top:6px">授業はありません</div></div>`;
-    } else {
-      cardHtml=`<div class="today-class-card today-class-card-empty"><div class="today-class-card-title">今日の授業</div><div style="font-size:13px;color:var(--muted);margin-top:6px">${td===0?'日曜日':holN(ds)}のためお休み</div></div>`;
-    }
-    const existing=document.getElementById('tt-today-card');
-    if(existing)existing.outerHTML=cardHtml;
-    else{
-      const schoolView=document.getElementById('view-school');
-      const ttWrap=schoolView.querySelector('.tt-wrap');
-      const cardDiv=document.createElement('div');
-      cardDiv.id='tt-today-card';
-      cardDiv.innerHTML=cardHtml;
-      schoolView.insertBefore(cardDiv,ttWrap);
-    }
-  })();
   // ヘッダー行
   let h='<div class="tt-head tt-head-empty"></div>';
   DAYS_WD.forEach(({d,l})=>{
@@ -605,11 +577,6 @@ function buildTTSide(){
   const now=new Date(),td=now.getDay(),ds=toDS(now);
   const isSat=td===6,off=isOff(ds);
   const maxP=isSat?SAT_MAX:PERIODS.length;
-  const todayC=(!off&&td>=1&&td<=6)?classes.filter(c=>c.day==td&&c.period<maxP):[];
-  // 今日の授業
-  let todayHtml=todayC.length
-    ?todayC.map(c=>{const p=PERIODS[c.period];return`<div class="tt-side-row"><div class="tt-side-period">${p.l}</div><div class="tt-side-body"><div class="tt-side-sub">${c.sub}</div><div class="tt-side-time">${p.s}–${p.e}</div></div></div>`;}).join('')
-    :'<div class="tt-side-empty">今日の授業なし</div>';
   // 直近テスト（上位3件）
   const t0=new Date();t0.setHours(0,0,0,0);
   const upTests=tests.slice().sort((a,b)=>a.start.localeCompare(b.start)).filter(t=>{const e=new Date(t.end);e.setHours(0,0,0,0);return e>=t0;}).slice(0,3);
@@ -617,8 +584,7 @@ function buildTTSide(){
     ?upTests.map(t=>{const ds2=new Date(t.start);ds2.setHours(0,0,0,0);const df=Math.round((ds2-t0)/86400000);return`<div class="tt-side-row"><div class="tt-side-period" style="color:#DC2626">${df<=0?'中':df+'日'}</div><div class="tt-side-body"><div class="tt-side-sub">${t.sub}</div><div class="tt-side-time">${t.start}〜${t.end}</div></div></div>`;}).join('')
     :'<div class="tt-side-empty">予定なし</div>';
   el.innerHTML=`
-    <div class="tt-side-sec">今日の授業</div>${todayHtml}
-    <div class="tt-side-sec" style="margin-top:10px">テスト</div>${testHtml}
+    <div class="tt-side-sec">テスト</div>${testHtml}
   `;
 }
 
