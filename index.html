@@ -1669,7 +1669,25 @@ function addTaskD(){
   if(!text)return;
   tasks.push({text,time:timeStart,timeStart,timeEnd,done:false});
   document.getElementById('dw-text').value='';
-  sv();closeDrawer();if(currentTab==='task')buildTaskList();if(currentTab==='today')buildToday();
+  // 追加アニメーション
+  const btn=document.querySelector('.dw-submit');
+  if(btn){
+    btn.textContent='✓ 追加しました';
+    btn.style.background='#16a34a';
+    btn.disabled=true;
+    setTimeout(()=>{
+      btn.textContent='追加する';
+      btn.style.background='';
+      btn.disabled=false;
+      sv();closeDrawer();
+      if(currentTab==='task')buildTaskList();
+      if(currentTab==='today')buildToday();
+    },800);
+  } else {
+    sv();closeDrawer();
+    if(currentTab==='task')buildTaskList();
+    if(currentTab==='today')buildToday();
+  }
 }
 function delClass(i){classes.splice(i,1);sv();buildTT();if(currentTab==='today')buildToday();}
 let _pendingDelIdx=-1;
