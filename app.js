@@ -434,14 +434,15 @@ function setTab(t,label,idx){
     const pg=document.getElementById('page-big');pg.style.opacity='0';setTimeout(()=>{pg.textContent='';pg.style.opacity='1';},120);
   } else {document.getElementById('page-small').textContent='今日';fadeDateTo(selDS);}
   closeSchool();
-  // 修正2: タブに応じてFABボタンのonclickを切り替える
+  // 修正2: タブに応じてFABボタン＆左上プラスボタンのonclickを切り替える
   const fab=document.getElementById('fab-add-btn');
-  if(fab){
-    if(t==='routine'){
-      fab.onclick=openRoutineDrawer;
-    } else {
-      fab.onclick=openDrawer;
-    }
+  const headerAdd=document.getElementById('header-add-btn');
+  if(t==='routine'){
+    if(fab) fab.onclick=openRoutineDrawer;
+    if(headerAdd) headerAdd.onclick=openRoutineDrawer;
+  } else {
+    if(fab) fab.onclick=openDrawer;
+    if(headerAdd) headerAdd.onclick=openDrawer;
   }
   if(t==='today'){buildToday();updateCal();}
   else if(t==='school')buildTT();
@@ -590,7 +591,7 @@ function buildTTSide(){
 
 function buildRoutineList(){
   const el=document.getElementById('routine-card');
-  if(!routines.length){el.innerHTML='<div class="empty-state">ルーティーンがありません<br><span style="opacity:.6;font-size:12px">設定から追加できます</span></div>';return;}
+  if(!routines.length){el.innerHTML='<div class="empty-state">ルーティーンがありません<br><span style="opacity:.6;font-size:12px">＋ボタンから追加できます</span></div>';return;}
   el.innerHTML=routines.map((r,i)=>`<div class="card-row"><div class="dot" style="background:#059669"></div><div style="flex:1"><div style="font-size:14px;font-weight:600">${r.name}</div><div style="font-size:12px;color:var(--muted)">${r.time} · ${r.dur}分</div></div><span class="pill pill-green">${r.time}</span><button class="del-btn" onclick="delRoutine(${i})">削除</button></div>`).join('');
 }
 
@@ -599,7 +600,7 @@ function buildTaskList(){
   if(!tasks.length){el.innerHTML='<div class="empty-state">タスクがありません<br><span style="opacity:.6;font-size:12px">右上の＋から追加できます</span></div>';return;}
   el.innerHTML=tasks.map((t,i)=>{
     const timeLabel=t.timeEnd?`${t.time}〜${t.timeEnd}`:t.time;
-    return`<div class="card-row"><input type="checkbox" ${t.done?'checked':''} onchange="toggleTask(${i})" style="accent-color:var(--acc);width:16px;height:16px;flex-shrink:0;cursor:pointer"><div style="flex:1;${t.done?'opacity:.4;text-decoration:line-through':''}"><div style="font-size:14px">${t.text}</div></div><span class="pill pill-amber">${timeLabel}</span><button class="del-btn" onclick="delTask(${i})">削除</button></div>`;
+    return`<div class="card-row" style="overflow:hidden"><input type="checkbox" ${t.done?'checked':''} onchange="toggleTask(${i})" style="accent-color:var(--acc);width:16px;height:16px;flex-shrink:0;cursor:pointer"><div style="flex:1;min-width:0;overflow:hidden;${t.done?'opacity:.4;text-decoration:line-through':''}"><div style="font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t.text}</div></div><span class="pill pill-amber" style="flex-shrink:0;white-space:nowrap">${timeLabel}</span><button class="del-btn" style="flex-shrink:0" onclick="delTask(${i})">削除</button></div>`;
   }).join('');
 }
 
@@ -959,6 +960,11 @@ const now=new Date();
 selDow=now.getDay();selDS=toDS(now);
 document.getElementById('page-big').textContent=`${now.getMonth()+1}月${now.getDate()}日`;
 buildWeek();buildToday();
+// 左上プラスボタンの初期設定（初期タブはtodayなのでopenDrawer）
+(function(){
+  const headerAdd=document.getElementById('header-add-btn');
+  if(headerAdd) headerAdd.onclick=openDrawer;
+})();
 initAuth(); // Supabase セッション復元
 
 // === NEXA Splash ===
