@@ -421,7 +421,7 @@ flex-shrink:0;
 .sf-accordion-body{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.16,1,.3,1),opacity .3s}
 .sf-accordion-body.open{max-height:800px}
 .empty-reg{font-size:12px;color:var(--muted);text-align:center;padding:12px 0}
-.drawer-overlay{display:none;position:fixed;inset:0;background:rgba(15,23,42,.4);align-items:flex-end;backdrop-filter:blur(3px);z-index:100}
+.drawer-overlay{display:none;position:fixed;inset:0;background:rgba(15,23,42,.4);align-items:flex-end;backdrop-filter:blur(3px);z-index:100;padding:0 16px;box-sizing:border-box;}
 .drawer-overlay.open{display:flex;animation:fadeIn .28s ease}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes popIn{from{opacity:0;transform:scale(.85) translateY(8px)}to{opacity:1;transform:none}}
@@ -430,10 +430,10 @@ flex-shrink:0;
 @keyframes shrinkOut{to{opacity:0;transform:scaleY(0) translateY(-6px);max-height:0;margin:0;padding:0;border:0}}
 @keyframes dotPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.4)}}
 @keyframes shimmer{from{background-position:200% 0}to{background-position:-200% 0}}
-drawer{background:var(--surface);border-radius:var(--r) var(--r) 0 0;padding:20px;width:100%;max-width:430px;margin:0 auto;animation:drawerUp .44s cubic-bezier(.16,1,.3,1);max-height:85vh;overflow-y:auto;}
+drawer{background:var(--surface);border-radius:var(--r) var(--r) 0 0;padding:20px;width:100%;max-width:430px;margin:0 auto;animation:drawerUp .44s cubic-bezier(.16,1,.3,1);max-height:85vh;overflow-y:auto;overflow-x:hidden;box-sizing:border-box;}
 @keyframes drawerUp{from{transform:translateY(100%);opacity:0}to{transform:none;opacity:1}}
 .drawer-title{font-size:17px;font-weight:700;margin-bottom:16px;color:var(--text)}
-.dw-input{width:100%;font-size:14px;padding:11px 14px;border:0.5px solid var(--border);border-radius:14px;background:var(--bg);color:var(--text);font-family:inherit;transition:border-color .2s,box-shadow .2s;margin-bottom:10px;min-width:0}
+.dw-input{width:100%;max-width:100%;font-size:14px;padding:11px 14px;border:0.5px solid var(--border);border-radius:14px;background:var(--bg);color:var(--text);font-family:inherit;transition:border-color .2s,box-shadow .2s;margin-bottom:10px;min-width:0;box-sizing:border-box;}
 .dw-row .dw-input{flex:1;width:auto;min-width:0}
 .dw-input:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 3px rgba(26,110,247,.12)}
 .dw-row{display:flex;gap:8px;margin-top:4px;min-width:0}
@@ -552,7 +552,7 @@ drawer{background:var(--surface);border-radius:var(--r) var(--r) 0 0;padding:20p
 }
 .confirm-overlay{display:none;position:fixed;inset:0;background:rgba(15,23,42,.45);align-items:center;justify-content:center;backdrop-filter:blur(4px);z-index:200;padding:20px}
 .confirm-overlay.open{display:flex;animation:fadeIn .28s ease}
-.confirm-modal{background:var(--surface);border-radius:22px;padding:24px 20px 18px;width:100%;max-width:320px;box-shadow:0 20px 60px rgba(15,23,42,.2);animation:modalUp .42s cubic-bezier(.16,1,.3,1)}
+.confirm-modal{background:var(--surface);border-radius:22px;padding:24px 20px 18px;width:100%;max-width:320px;box-shadow:0 20px 60px rgba(15,23,42,.2);animation:modalUp .42s cubic-bezier(.16,1,.3,1);overflow:hidden;box-sizing:border-box;}
 @keyframes modalUp{from{opacity:0;transform:translateY(16px) scale(.96)}to{opacity:1;transform:none}}
 .cm-icon{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,#fef2f2,#fee2e2);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 14px}
 .cm-title{font-size:16px;font-weight:700;text-align:center;color:var(--text);margin-bottom:6px}
@@ -565,7 +565,7 @@ drawer{background:var(--surface);border-radius:var(--r) var(--r) 0 0;padding:20p
 /* ── Auth Modal ─────────────────────── */
 .auth-overlay{display:none;position:fixed;inset:0;background:rgba(15,23,42,.5);align-items:center;justify-content:center;backdrop-filter:blur(6px);z-index:300;padding:20px}
 .auth-overlay.open{display:flex;animation:fadeIn .28s ease}
-.auth-modal{background:var(--surface);border-radius:24px;padding:28px 22px 22px;width:100%;max-width:340px;box-shadow:0 24px 64px rgba(15,23,42,.22);animation:modalUp .4s cubic-bezier(.16,1,.3,1)}
+.auth-modal{background:var(--surface);border-radius:24px;padding:28px 22px 22px;width:100%;max-width:340px;box-shadow:0 24px 64px rgba(15,23,42,.22);animation:modalUp .4s cubic-bezier(.16,1,.3,1);overflow:hidden;box-sizing:border-box;}
 .auth-logo{width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,var(--acc),var(--acc2));display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 16px;box-shadow:0 6px 18px rgba(26,110,247,.3)}
 .auth-title{font-size:22px;font-weight:800;text-align:center;color:var(--text);margin-bottom:4px;font-family:'Manrope',sans-serif;letter-spacing:-.3px}
 .auth-sub{font-size:13px;color:var(--muted);text-align:center;margin-bottom:20px}
