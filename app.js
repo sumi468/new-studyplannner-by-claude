@@ -450,7 +450,7 @@ function setTab(t,label,idx){
   else if(t==='task')buildTaskList();
   else if(t==='settings')buildSettings();
 }
-
+else if(t==='memo')renderMemoList();
 let todaySegment='today'; // 'today' | 'schedule'
 
 function buildToday(){
